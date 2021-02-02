@@ -1,0 +1,25 @@
+:root {
+    --cell-size: 80px;
+}
+
+#gameboard {
+    width: calc(var(--cell-size)*3);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cell {
+    height: var(--cell-size);
+    width: var(--cell-size);
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.cell:hover {
+    background-color:rgba(100, 100, 100, 0.1);
+}
+
+.first-row {border-top: none;}
+.last-row {border-bottom: none;}
+.first-column {border-left: none;}
+.last-column {border-right: none;}
