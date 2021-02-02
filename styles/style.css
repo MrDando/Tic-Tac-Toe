@@ -2,10 +2,34 @@
     --cell-size: 80px;
 }
 
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: inherit;
+}
+
+main {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container {
+    margin-top: 20%;
+    width: fit-content;
+    border: 1px solid black;
+    border-radius: 5%;
+}
+
 #gameboard {
     width: calc(var(--cell-size)*3);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    margin: 2em;
 }
 
 .cell {
