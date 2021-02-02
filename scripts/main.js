@@ -3,8 +3,10 @@ const gameboard = (function () {
                  ["","",""],
                  ["","",""]];
 
-    const update = function (i, j, val) {
-        board[i][j] = val;
+    const update = function (cell, player) {
+        const i = cell.id[2]
+        const j = cell.id[3]
+        board[i][j] = player;
         displayDriver.markCell(i, j, board[i][j])
     };
     const getBoard = function () {
@@ -22,8 +24,8 @@ const displayDriver = (function() {
 })();
 
 const game = (function () {
-    let player = 1;
-    let mark = "X";
+    let round = 1;
+    let player;
     const init = function () {
         const cells = document.querySelectorAll('.cell')
         cells.forEach( (cell) => cell.addEventListener('click', validateMove))
@@ -31,25 +33,17 @@ const game = (function () {
     const validateMove = function (e) {
         const cell = e.target;
         if (cell.innerText === "") {
-            markCell(cell)
+            playRound(cell)
         }
     }
-    const setPlayer = function() {
-        if (player === 1) {
-            mark = "X";
-            player = 2;
+    const playRound = function(cell) {
+        if (round % 2 != 0) {
+            player = "X";
         } else {
-            mark = "O";
-            player = 1;
-        }
-        return mark;
-    }
-    const markCell = function(cell) {
-        let mark = setPlayer();
-        const x = cell.id[2]
-        const y = cell.id[3]
-        gameboard.update(x, y, mark)
-
+            player = "O";
+        };
+        gameboard.update(cell, player)
+        round += 1;
     }
     return {init}
 })();
