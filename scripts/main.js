@@ -7,7 +7,10 @@ const gameboard = (function () {
         board[i][j] = val;
         displayDriver.markCell(i, j, board[i][j])
     };
-    return {update}
+    const getBoard = function () {
+        return board
+    }
+    return {update, getBoard}
 })();
 
 const displayDriver = (function() {
