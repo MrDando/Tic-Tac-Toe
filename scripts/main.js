@@ -43,7 +43,34 @@ const game = (function () {
             player = "O";
         };
         gameboard.update(cell, player)
+        checkGameOver()
         round += 1;
+    }
+    const checkGameOver = function() {
+        let symbol = player;
+        let board = gameboard.getBoard();
+        let win = checkWin()
+        if (win === true) {
+            alert(`${symbol} won the round!`)
+        } else if (round === 9) alert("It's a tie")
+
+        function checkWin () {
+            for (let i = 0; i <board.length; i++) {
+                for (let j = 0; j < board[i].length; j++) {
+                    if (board[i][j] != symbol) break;
+                    if (board[i][j] === symbol && j === 2) return true;
+                }
+            }
+            for (let i = 0; i <board.length; i++) {
+                for (let j = 0; j < board[i].length; j++) {
+                    if (board[j][i] != symbol) break;
+                    if (board[j][i] === symbol && j === 2) return true;
+                }
+            }
+            if(board[0][0] === symbol && board[1][1] === symbol && board[2][2] === symbol) return true;
+            if(board[2][0] === symbol && board[1][1] === symbol && board[0][2] === symbol) return true;
+            return false
+        }
     }
     return {init}
 })();
