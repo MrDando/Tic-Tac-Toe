@@ -12,14 +12,25 @@ const gameboard = (function () {
     const getBoard = function () {
         return board
     }
-    return {update, getBoard}
+    const clearBoard = function () {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                board[i][j] = ""
+                displayDriver.markCell(i, j, board[i][j])
+            }
+        }
+    }
+    return {update, getBoard, clearBoard}
 })();
 
 const displayDriver = (function() {
     const container = document.getElementById('container')
     const init = function () {
-        const cells = container.querySelectorAll('.cell')
-        cells.forEach( (cell) => cell.addEventListener('click', game.validateMove))
+        const cells = container.querySelectorAll('.cell');
+        cells.forEach( (cell) => cell.addEventListener('click', game.validateMove));
+
+        const restartButton = container.querySelector('#new-game-btn')
+        restartButton.addEventListener('click', game.resetGame)
     }
     const markCell = function (i, j , val) {
         const cell = container.querySelector(`#C-${i}${j}`)
@@ -93,7 +104,12 @@ const game = (function () {
         }
         displayDriver.displayMessage(message)
     }
-    return {validateMove}
+    const resetGame = function () {
+        round = 1;
+        gameboard.clearBoard();
+        displayDriver.togglePopup();
+    }
+    return {validateMove, resetGame}
 })();
 
 displayDriver.init();
