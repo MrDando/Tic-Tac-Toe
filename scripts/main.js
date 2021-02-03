@@ -20,7 +20,15 @@ const displayDriver = (function() {
         const cell = document.getElementById(`C-${i}${j}`)
         cell.innerText = val;
     }
-    return {markCell}
+    const togglePopup = function () {
+        const popup = document.querySelector('.popup')
+        popup.classList.toggle("show");
+    }
+    const displayMessage = function (message) {
+        const popup = document.querySelector('#popup-text')
+        popup.innerText = message;
+    }
+    return {markCell, togglePopup, displayMessage}
 })();
 
 const game = (function () {
@@ -51,8 +59,8 @@ const game = (function () {
         let board = gameboard.getBoard();
         let win = checkWin()
         if (win === true) {
-            alert(`${symbol} won the round!`)
-        } else if (round === 9) alert("It's a tie")
+            gameEnd("win", player)
+        } else if (round === 9) gameEnd("tie", null)
 
         function checkWin () {
             for (let i = 0; i <board.length; i++) {
@@ -71,6 +79,18 @@ const game = (function () {
             if(board[2][0] === symbol && board[1][1] === symbol && board[0][2] === symbol) return true;
             return false
         }
+    }
+    const gameEnd = function (type, player) {
+        displayDriver.togglePopup();
+
+        let message;
+        if (type === "win") {
+            message = `${player} has won!`
+            
+        } else {
+            message = "Draw"
+        }
+        displayDriver.displayMessage(message)
     }
     return {init}
 })();
