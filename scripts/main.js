@@ -16,20 +16,21 @@ const gameboard = (function () {
 })();
 
 const displayDriver = (function() {
+    const container = document.getElementById('container')
     const init = function () {
-        const cells = document.querySelectorAll('.cell')
+        const cells = container.querySelectorAll('.cell')
         cells.forEach( (cell) => cell.addEventListener('click', game.validateMove))
     }
     const markCell = function (i, j , val) {
-        const cell = document.getElementById(`C-${i}${j}`)
+        const cell = container.querySelector(`#C-${i}${j}`)
         cell.innerText = val;
     }
     const togglePopup = function () {
-        const popup = document.querySelector('.popup')
+        const popup = container.querySelector('.popup')
         popup.classList.toggle("show");
     }
     const displayMessage = function (message) {
-        const popup = document.querySelector('#popup-text')
+        const popup = container.querySelector('#popup-text')
         popup.innerText = message;
     }
     return {init, markCell, togglePopup, displayMessage}
