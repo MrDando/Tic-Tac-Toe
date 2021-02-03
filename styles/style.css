@@ -56,6 +56,11 @@ main {
 .cell {
     height: var(--cell-size);
     width: var(--cell-size);
+    font-size: 30px;
+    font-family: 'Chicle', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     border: 1px solid var(--container-border-color);
 }
